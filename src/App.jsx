@@ -22,10 +22,10 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Explorer from './pages/Explorer/Explorer';
 import ProductDetail from './pages/Explorer/ProductDetail';
 import Settings from './pages/Settings/Settings';
+import Analysis from './pages/Analysis/Analysis';
 
 // Mock components for protected routes
-function Analysis() { return <div className="p-8 text-center text-on-surface">Analysis Placeholder</div>; }
-function Budgets() { return <div className="p-8 text-center text-on-surface">Budgets Placeholder</div>; }
+import Budgets from './pages/Budgets/Budgets';
 
 // Protected Route Wrapper
 function PrivateRoute({ children }) {

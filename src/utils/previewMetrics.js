@@ -1,6 +1,6 @@
 import { formatCurrency } from './currency';
 
-export function calculatePreviewMetrics(product, profileData) {
+export function calculatePreviewMetrics(product, profileData, lang = 'en') {
     const income = profileData?.income || {};
     const expenses = profileData?.expenses || {};
     const preferences = profileData?.preferences || {};
@@ -33,16 +33,26 @@ export function calculatePreviewMetrics(product, profileData) {
     baseScore = Math.max(0, Math.min(100, Math.round(baseScore)));
 
     let quickPreview = "Evaluate this purchase carefully.";
-    if (baseScore >= 80) quickPreview = "Looks well within your estimated budget.";
-    else if (baseScore >= 50) quickPreview = "Moderate impact on your monthly free cash flow.";
-    else quickPreview = "High budget impact. Waiting or saving up is recommended.";
+    if (lang === 'tr') {
+        if (baseScore >= 80) quickPreview = "Tahmini bütçenizle oldukça uyumlu görünüyor.";
+        else if (baseScore >= 50) quickPreview = "Aylık serbest nakit akışınız üzerinde orta düzeyde etki.";
+        else quickPreview = "Yüksek bütçe baskısı. Beklemeniz veya biriktirmeniz önerilir.";
+    } else {
+        if (baseScore >= 80) quickPreview = "Looks well within your estimated budget.";
+        else if (baseScore >= 50) quickPreview = "Moderate impact on your monthly free cash flow.";
+        else quickPreview = "High budget impact. Waiting or saving up is recommended.";
+    }
+
+    const monthlyCostEstimate = lang === 'tr'
+        ? `${formatCurrency(estimatedMonthlyCost, product.currency)}/ay (${months} ay)`
+        : `${formatCurrency(estimatedMonthlyCost, product.currency)}/mo (${months} mos)`;
 
     // Format estimated impact based on whether the product currency matches user currency
     // If we had an exchange rate we'd use it, but for now just show product currency
     return {
         estimatedCompatibility: `${Math.max(0, Math.min(100, Math.round(100 - (compatibilityRatio * 100))))}%`,
         estimatedImpact: `-${formatCurrency(product.price, product.currency)}`,
-        monthlyCostEstimate: `${formatCurrency(estimatedMonthlyCost, product.currency)}/mo (${months} mos)`,
+        monthlyCostEstimate,
         previewScore: baseScore,
         quickPreview
     };

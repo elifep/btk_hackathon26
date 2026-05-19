@@ -9,6 +9,9 @@ export function useUserProfile() {
     const [error, setError] = useState(null);
     const [profileData, setProfileData] = useState(null);
     const [metrics, setMetrics] = useState(null);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+    const refetch = () => setRefreshTrigger(prev => prev + 1);
 
     useEffect(() => {
         async function fetchProfile() {
@@ -81,7 +84,7 @@ export function useUserProfile() {
         }
 
         fetchProfile();
-    }, [currentUser]);
+    }, [currentUser, refreshTrigger]);
 
-    return { profileData, metrics, loading, error };
+    return { profileData, metrics, loading, error, refetch };
 }

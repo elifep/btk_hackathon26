@@ -5,9 +5,9 @@ import { mockProducts } from '../../data/mockProducts';
 import { calculatePreviewMetrics } from '../../utils/previewMetrics';
 
 export default function ProductDetail() {
-    const { id } = useParams();
+    const id = useParams().id;
     const { openAnalyzeModal, profileData } = useOutletContext();
-    const { t, formatCurrencyLocal } = useLanguage();
+    const { t, formatCurrencyLocal, language } = useLanguage();
     const product = mockProducts.find(p => p.id === id);
 
     if (!product) {
@@ -19,23 +19,18 @@ export default function ProductDetail() {
         );
     }
 
-    const metrics = calculatePreviewMetrics(product, profileData);
+    const metrics = calculatePreviewMetrics(product, profileData, language);
 
     return (
-        <div className="pt-8 pb-24 md:pb-section-gap px-container-margin max-w-7xl mx-auto w-full">
+        <div className="pt-8 pb-24 md:pb-section-gap px-container-margin max-w-7xl mx-auto w-full animate-fade-in">
             <Link to="/explorer" className="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors mb-8">
                 <span className="material-symbols-outlined">arrow_back</span>
                 {t('productDetail.backToExplorer')}
             </Link>
 
-            <div className="bg-surface-container-low/30 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden flex flex-col md:flex-row">
+            <div className="bg-surface-container-low border border-outline-variant/30 rounded-xl overflow-hidden flex flex-col md:flex-row shadow-sm">
                 <div className="md:w-1/2 h-64 md:h-auto bg-surface-container-lowest relative">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover opacity-80" />
-                    
-                    {/* FUTURE ARCHITECTURE: Saved / Wishlist / Compare features can go here */}
-                    {/* <button className="absolute top-4 right-4 bg-surface/50 backdrop-blur-md p-2 rounded-full hover:bg-surface border border-white/10 text-on-surface-variant hover:text-error transition-all">
-                        <span className="material-symbols-outlined">favorite</span>
-                    </button> */}
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover opacity-90" />
                 </div>
                 
                 <div className="p-8 md:w-1/2 flex flex-col">
@@ -51,16 +46,16 @@ export default function ProductDetail() {
                     {/* Pre-Analysis Decision Hub */}
                     <div className="space-y-6 mb-8 flex-grow">
                         {/* Why this purchase matters */}
-                        <div className="bg-surface-container-highest/30 rounded-lg p-4 border border-white/5">
+                        <div className="bg-surface-container-highest/20 rounded-lg p-4 border border-outline-variant/15">
                             <h4 className="font-label-md text-on-surface flex items-center gap-2 mb-2">
                                 <span className="material-symbols-outlined text-sm text-secondary">info</span>
                                 {t('productDetail.purchaseOverview')}
                             </h4>
-                            <p className="font-body-md text-on-surface-variant opacity-80">{metrics.quickPreview}</p>
+                            <p className="font-body-md text-on-surface-variant leading-relaxed">{metrics.quickPreview}</p>
                         </div>
 
                         {/* Financial Impact Summary */}
-                        <div className="bg-surface-container-highest/30 rounded-lg p-4 border border-white/5 grid grid-cols-2 gap-4">
+                        <div className="bg-surface-container-highest/20 rounded-lg p-4 border border-outline-variant/15 grid grid-cols-2 gap-4">
                             <div>
                                 <span className="block font-label-sm text-on-surface-variant mb-1">{t('explorer.previewScore')}</span>
                                 <span className="font-headline-md text-on-surface">{metrics.previewScore}/100</span>
@@ -80,7 +75,7 @@ export default function ProductDetail() {
                         </div>
 
                         {/* Long Term Savings Impact (Mock visual representation) */}
-                        <div className="bg-surface-container-highest/30 rounded-lg p-4 border border-white/5">
+                        <div className="bg-surface-container-highest/20 rounded-lg p-4 border border-outline-variant/15">
                             <h4 className="font-label-md text-on-surface flex items-center gap-2 mb-3">
                                 <span className="material-symbols-outlined text-sm text-tertiary">trending_down</span>
                                 {t('productDetail.freeCashFlowPressure')}
@@ -97,12 +92,10 @@ export default function ProductDetail() {
                         </div>
                     </div>
 
-                    {/* FUTURE ARCHITECTURE: AI Memory / History context can be injected into the prompt later */}
-
                     <div className="mt-auto">
                         <button 
                             onClick={() => openAnalyzeModal(product)}
-                            className="w-full bg-primary-container text-white py-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-colors shadow-[0_5px_20px_rgba(16,185,129,0.15)] hover:shadow-[0_5px_25px_rgba(16,185,129,0.3)]"
+                            className="w-full bg-primary-container text-white py-4 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-colors shadow-[0_5px_20px_rgba(16,185,129,0.15)] hover:shadow-[0_5px_25px_rgba(16,185,129,0.3)] border border-primary-container"
                         >
                             <span className="material-symbols-outlined">psychology</span>
                             {t('productDetail.runDeepAnalysis')}

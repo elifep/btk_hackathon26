@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnboarding } from '../../context/OnboardingContext';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Step5_Tracking() {
     const navigate = useNavigate();
     const { onboardingData, updateTracking, finalizeOnboarding, loading, error } = useOnboarding();
     const { method } = onboardingData.tracking;
+    const { t } = useLanguage();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,10 +28,10 @@ export default function Step5_Tracking() {
             <div className="mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-sm text-label-sm mb-4">
                     <span className="material-symbols-outlined text-[14px]">monitoring</span>
-                    Step 5
+                    {t('onboarding.stepTitle')} 5
                 </div>
-                <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Tracking Setup</h1>
-                <p className="font-body-md text-on-surface-variant">How do you want to input your daily expenses?</p>
+                <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">{t('onboarding.step5Title')}</h1>
+                <p className="font-body-md text-on-surface-variant leading-relaxed">{t('onboarding.step5Desc')}</p>
             </div>
 
             {error && (
@@ -54,8 +56,8 @@ export default function Step5_Tracking() {
                             htmlFor="track-manual" 
                             className={`flex items-start p-5 rounded-xl border cursor-pointer transition-all ${
                                 method === 'manual' 
-                                ? 'bg-primary/10 border-primary shadow-[0_0_20px_rgba(16,185,129,0.15)]' 
-                                : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'
+                                ? 'bg-primary/10 border-primary shadow-sm' 
+                                : 'bg-surface-container/30 border-outline-variant/30 hover:border-outline-variant/50 hover:bg-surface-container/50'
                             }`}
                         >
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-4 ${
@@ -65,10 +67,10 @@ export default function Step5_Tracking() {
                             </div>
                             <div>
                                 <h3 className={`font-headline-md text-lg mb-1 ${method === 'manual' ? 'text-primary' : 'text-on-surface'}`}>
-                                    Manual Entry
+                                    {t('onboarding.trackManual')}
                                 </h3>
                                 <p className="font-body-md text-sm text-on-surface-variant">
-                                    I will manually input my transactions. Best for high awareness.
+                                    {t('onboarding.trackManualDesc')}
                                 </p>
                             </div>
                         </label>
@@ -85,18 +87,18 @@ export default function Step5_Tracking() {
                         />
                         <label 
                             htmlFor="track-sync" 
-                            className="flex items-start p-5 rounded-xl border bg-white/5 border-white/10 cursor-not-allowed"
+                            className="flex items-start p-5 rounded-xl border bg-surface-container/10 border-outline-variant/15 cursor-not-allowed"
                         >
                             <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 mr-4 bg-surface-container text-on-surface-variant">
                                 <span className="material-symbols-outlined text-[20px]">account_balance</span>
                             </div>
                             <div className="flex-1">
                                 <div className="flex justify-between items-center mb-1">
-                                    <h3 className="font-headline-md text-lg text-on-surface">Auto-Sync via Plaid</h3>
-                                    <span className="text-[10px] uppercase tracking-wider bg-surface-variant px-2 py-1 rounded text-on-surface-variant">Coming Soon</span>
+                                    <h3 className="font-headline-md text-lg text-on-surface">{t('onboarding.trackSync')}</h3>
+                                    <span className="text-[10px] uppercase tracking-wider bg-surface-variant px-2 py-1 rounded text-on-surface-variant">{t('onboarding.comingSoon')}</span>
                                 </div>
                                 <p className="font-body-md text-sm text-on-surface-variant">
-                                    Securely connect your bank accounts for automatic categorization.
+                                    {t('onboarding.trackSyncDesc')}
                                 </p>
                             </div>
                         </label>
@@ -104,23 +106,23 @@ export default function Step5_Tracking() {
                 </div>
 
                 {/* System Readiness Box */}
-                <div className="mt-8 bg-surface-container-highest/30 border border-white/5 rounded-xl p-4 flex items-center gap-4">
+                <div className="mt-8 bg-surface-container-highest/20 border border-outline-variant/15 rounded-xl p-4 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                         <span className="material-symbols-outlined text-primary">check_circle</span>
                     </div>
                     <div>
-                        <h4 className="font-label-md text-label-md text-on-surface">Neural Engine Ready</h4>
-                        <p className="text-xs text-on-surface-variant mt-1">Your profile is complete. We're ready to initialize your personalized dashboard.</p>
+                        <h4 className="font-label-md text-label-md text-on-surface">{t('onboarding.neuralEngineReady')}</h4>
+                        <p className="text-xs text-on-surface-variant mt-1">{t('onboarding.neuralEngineReadyDesc')}</p>
                     </div>
                 </div>
 
                 {/* Navigation */}
-                <div className="mt-auto pt-8 flex items-center justify-between border-t border-white/10">
+                <div className="mt-auto pt-8 flex items-center justify-between border-t border-outline-variant/30">
                     <button type="button" onClick={handleBack} disabled={loading} className="text-on-surface-variant hover:text-on-surface font-label-md px-4 py-2 transition-colors disabled:opacity-50">
-                        Back
+                        {t('onboarding.back')}
                     </button>
-                    <button type="submit" disabled={loading} className="bg-primary-container text-background font-label-md text-label-md px-8 py-3.5 rounded-xl hover:bg-primary hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all flex items-center gap-2 shadow-lg disabled:opacity-50 disabled:scale-100">
-                        {loading ? 'Initializing...' : 'Launch Dashboard'}
+                    <button type="submit" disabled={loading} className="bg-primary-container text-white font-label-md text-label-md px-8 py-3.5 rounded-xl hover:bg-primary hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all flex items-center gap-2 shadow-lg disabled:opacity-50 border border-primary-container">
+                        {loading ? t('onboarding.initializing') : t('onboarding.launchDashboard')}
                         {!loading && <span className="material-symbols-outlined text-[18px]">rocket_launch</span>}
                     </button>
                 </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
 import GlobalLayout from './components/layout/GlobalLayout';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Auth/Login';
@@ -17,12 +19,13 @@ import Step5_Tracking from './pages/Onboarding/Step5_Tracking';
 // Dashboard Imports
 import DashboardLayout from './components/layout/DashboardLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Explorer from './pages/Explorer/Explorer';
+import ProductDetail from './pages/Explorer/ProductDetail';
+import Settings from './pages/Settings/Settings';
 
 // Mock components for protected routes
-function Explorer() { return <div className="p-8 text-center text-on-surface">Explorer Placeholder</div>; }
 function Analysis() { return <div className="p-8 text-center text-on-surface">Analysis Placeholder</div>; }
 function Budgets() { return <div className="p-8 text-center text-on-surface">Budgets Placeholder</div>; }
-function Settings() { return <div className="p-8 text-center text-on-surface">Settings Placeholder</div>; }
 
 // Protected Route Wrapper
 function PrivateRoute({ children }) {
@@ -32,39 +35,44 @@ function PrivateRoute({ children }) {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Public Auth Routes without Layout */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+    <ThemeProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <Router>
+            <Routes>
+              {/* Public Auth Routes without Layout */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
-          {/* Routes with Global Layout */}
-          <Route element={<GlobalLayout />}>
-            {/* Public */}
-            <Route path="/" element={<Landing />} />
-          </Route>
-            
-          {/* Protected Routes with Dashboard Layout */}
-          <Route element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/explorer" element={<Explorer />} />
-            <Route path="/analysis" element={<Analysis />} />
-            <Route path="/budgets" element={<Budgets />} />
-            <Route path="/settings" element={<Settings />} />
-          </Route>
+              {/* Routes with Global Layout */}
+              <Route element={<GlobalLayout />}>
+                {/* Public */}
+                <Route path="/" element={<Landing />} />
+              </Route>
+                
+              {/* Protected Routes with Dashboard Layout */}
+              <Route element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/explorer" element={<Explorer />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/analysis" element={<Analysis />} />
+                <Route path="/budgets" element={<Budgets />} />
+                <Route path="/settings" element={<Settings />} />
+              </Route>
 
-          {/* Onboarding Wizard Routes (Protected, uses OnboardingLayout) */}
-          <Route path="/onboarding" element={<PrivateRoute><OnboardingLayout /></PrivateRoute>}>
-            <Route path="step1" element={<Step1_Income />} />
-            <Route path="step2" element={<Step2_Expenses />} />
-            <Route path="step3" element={<Step3_Goals />} />
-            <Route path="step4" element={<Step4_Risk />} />
-            <Route path="step5" element={<Step5_Tracking />} />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthProvider>
+              {/* Onboarding Wizard Routes (Protected, uses OnboardingLayout) */}
+              <Route path="/onboarding" element={<PrivateRoute><OnboardingLayout /></PrivateRoute>}>
+                <Route path="step1" element={<Step1_Income />} />
+                <Route path="step2" element={<Step2_Expenses />} />
+                <Route path="step3" element={<Step3_Goals />} />
+                <Route path="step4" element={<Step4_Risk />} />
+                <Route path="step5" element={<Step5_Tracking />} />
+              </Route>
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
 

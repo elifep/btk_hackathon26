@@ -20,7 +20,7 @@ export default function GlobalLayout() {
     const hideFooter = location.pathname.includes('/dashboard') || location.pathname.includes('/explorer');
 
     return (
-        <div className="min-h-screen flex flex-col bg-background text-on-surface font-body-lg antialiased selection:bg-primary/30 selection:text-primary">
+        <div className="min-h-screen flex flex-col bg-background text-on-surface font-body-lg antialiased">
             {/* Top Navigation Bar */}
             <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-[0_0_30px_rgba(16,185,129,0.1)] hidden md:block">
                 <div className="flex justify-between items-center max-w-7xl mx-auto px-container-margin h-20">

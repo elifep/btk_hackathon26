@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "spendwise-ai"
-  }
+    "default": "spendwise-ai-hackathon",
+    "ai": "spendwise-ai-hackathon"
+  },
+  "targets": {},
+  "etags": {}
 }

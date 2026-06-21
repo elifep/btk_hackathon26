@@ -42,7 +42,7 @@ Built with a premium **Obsidian + Emerald glassmorphism design system**, the pla
 - **Routing:** React Router v7
 - **Styling:** Tailwind CSS (Custom Obsidian/Emerald Design System)
 - **Backend / Database:** Firebase (Auth, Firestore)
-- **AI Engine:** Google Gemini API (Upcoming Phase)
+- **AI Engine:** Google Gemini API (Integrated)
 - **State Management:** React Context API
 
 ---
@@ -72,6 +72,7 @@ VITE_FIREBASE_PROJECT_ID="your_project_id"
 VITE_FIREBASE_STORAGE_BUCKET="your_storage_bucket"
 VITE_FIREBASE_MESSAGING_SENDER_ID="your_sender_id"
 VITE_FIREBASE_APP_ID="your_app_id"
+VITE_GEMINI_API_KEY="your_gemini_api_key"
 ```
 
 ### 4. Run the development server
@@ -88,8 +89,8 @@ The application will launch on `http://localhost:5173`.
 - [x] **Phase 1:** Core Architecture & Authentication (Login/Signup/Firebase Integration)
 - [x] **Phase 2:** Premium Onboarding Wizard (Income, Expenses, Goals, Risk Profiling)
 - [x] **Phase 3:** Core Dashboard & Dynamic Localization Engine (Real-time data rendering)
-- [ ] **Phase 4:** AI Analysis Layer (Gemini API Integration for predictive insights)
-- [ ] **Phase 5:** Explorer & Product Intelligence (AI-driven product purchasing advice)
+- [x] **Phase 4:** AI Analysis Layer (Gemini API Integration for predictive insights)
+- [x] **Phase 5:** Explorer & Product Intelligence (AI-driven product purchasing advice)
 
 ---
 

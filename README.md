@@ -81,7 +81,7 @@ npm run dev
 ```
 
 The application will launch on `http://localhost:5173`.
-
+Live link: `https://spendwise-ai-hackathon.web.app/`.
 ---
 
 ## 🗺️ Project Roadmap
